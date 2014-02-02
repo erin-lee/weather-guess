@@ -1,4 +1,4 @@
-js-proj-01
+jQuery Practice 00
 ==========
 
-jQuery practice
+Hot or Cold
