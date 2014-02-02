@@ -1,0 +1,78 @@
+@import url(http://fonts.googleapis.com/css?family=Lato);
+
+$lato: "Lato";
+$base: rgb(0,153,153);
+$primary: rgb(238,238,238);
+$alternate: hsl(131, 50%, 54%);
+
+// .transition (@prop: all, @time: 1s, @ease: linear) {
+//     -webkit-transition: @prop @time @ease;
+//     -moz-transition: @prop @time @ease;
+//     -o-transition: @prop @time @ease;
+//     -ms-transition: @prop @time @ease;
+//     transition: @prop @time @ease;
+// }
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: $lato;
+  color: $primary;
+  background-color: $base;
+  height: 100%;
+  border-top: 5px solid $primary;
+  // .transition(all, 0.5s, ease-in);
+}
+
+h1 {
+  text-align: center;
+  font-size: 25px;
+}
+
+h2 {
+  font-size: 20px;
+  text-align: center;
+}
+
+#container {
+  text-align: center;
+}
+
+input[type=tel] {
+  border: 3px solid lighten(gray, 0.40);
+  border-radius: 5px;
+  padding: 10px;
+  font-size: 20px;
+  width: 200px;
+  text-align:center;
+  outline: none;
+}
+
+input[type=submit], button {
+  background-color: lighten($base, 10%);
+  border: 3px solid lighten($base, 30%);
+  border: 0;
+  padding:15px 20px;
+  width: 200px;
+  border-radius: 5px;
+  font-size: 15px;
+  color: white;
+  // .transition(all, 0.5s, ease-in);
+  &:hover {
+    background-color: lighten($base, 10%);
+    cursor: pointer;
+  }
+}
+
+button {
+  background-color: $alternate;
+  &:hover {
+     background-color: lighten($alternate, 10%);
+  }
+}
+
+ul li {
+  list-style-type: none;
+  display: block;
+  padding: 15px 0;
+}
