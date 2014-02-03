@@ -1,4 +1,9 @@
 jQuery Practice 00
 ==========
 
-Hot or Cold
+Simple Hot or Cold app
+Using:
+- jQuery
+- Jade
+- SCSS
+- Yeoman/Grunt
