@@ -1,7 +1,8 @@
-jQuery Practice 00
+Guess today's high.
 ==========
 
-Simple Hot or Cold app
+A simple guess the weather game.
+
 Using:
 - jQuery
 - Jade
