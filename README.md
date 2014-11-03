@@ -8,3 +8,5 @@ Using:
 - Jade
 - SCSS
 - Yeoman/Grunt
+- Forecast.io API
+- Geolocation
