@@ -2,14 +2,16 @@ var HotOrCold = {
 
   init: function( settings ) {
     HotOrCold.config = {
-      answer: Math.floor(Math.random()*100),
+      answer: null,
       $body: $('body'),
       $newGame: $('#newGame'),
       $reply: $('#reply'),
       $replySm: $('#reply-2'),
       $guess: $("#guess"),
       guesses: [],
-      $submitAnswer: $('#submit')
+      $submitAnswer: $('#submit'),
+      lat: "40.7127", // Default NYC coords
+      lng: "-74.0059" // Default NYC coords
     };
 
     // allow overriding the default config
@@ -21,8 +23,51 @@ var HotOrCold = {
   },
 
   setup: function() {
+    HotOrCold.geoFindMe();
+
     HotOrCold.config.$submitAnswer.on( 'click', HotOrCold.validateGuess );
     HotOrCold.config.$newGame.on('click', HotOrCold.startNewGame);
+  },
+
+  getWeather: function(lat, lng) {
+    var APIKEY = "42be869e8dae0638604a7e2e0bfad849";
+    var weatherUrl = "https://api.forecast.io/forecast/" + APIKEY + "/"  + lat + "," + lng;
+    var request = $.ajax({
+      url: weatherUrl,
+      type: "GET",
+      dataType: "JSONP",
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      }
+    });
+    request.success(function(data) {
+      currentTemp = data.currently.temperature;
+      console.log(Math.round(currentTemp));
+      HotOrCold.config.answer = Math.round(currentTemp);
+    })
+  },
+
+  geoFindMe: function () {
+
+    // Weather API
+    var lat = HotOrCold.config.lat;
+    var lng = HotOrCold.config.lng;
+
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        lat = position.coords.latitude;
+        lng = position.coords.longitude;
+      });
+    } else {
+
+      // Set Default location to NY
+      lat = "37.8267,";
+      lng = "-122.423";
+
+      console.log("default lat + long: " + lat + " " + lng );
+    };
+    HotOrCold.getWeather(lat, lng);
   },
 
   startGame: function(guess) {
@@ -31,6 +76,7 @@ var HotOrCold = {
     var answer = HotOrCold.config.answer;
     var guess = Number(guess);
     console.log("The Guess ", guess);
+
     console.log("The Answer ", answer);
 
     if (guess == answer) {
@@ -41,7 +87,6 @@ var HotOrCold = {
   },
 
   startNewGame: function() {
-    console.log('hi');
     // var guesses = HotOrCold.config.guesses;
 
     HotOrCold.config.$body.css("background-color", "hsl(180, 100%, 30%)");
@@ -123,7 +168,7 @@ var HotOrCold = {
   },
 
   showSuccess: function(correctGuess) {
-    HotOrCold.config.$reply.text(correctGuess + " is HHhhot!");
+    HotOrCold.config.$reply.text("Correct! It's about " + correctGuess + " degrees today.");
     HotOrCold.config.$replySm.text("Nice Job!");
     HotOrCold.config.$body.css("background-color", "hsl(1, 46%, 50%)");
     HotOrCold.config.$submitAnswer.fadeOut();
