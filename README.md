@@ -1,4 +1,4 @@
-Guess today's high.
+Guess today's weather.
 ==========
 
 A simple guess the weather game.
